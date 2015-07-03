@@ -33,10 +33,17 @@ module.exports = {
 
   log: {
     level: "debug"
-  }
+  },
 
   session: {
   	url: process.env.REDIS_URL
+  },
+
+  connections: {
+  	someMongodbServer: {
+    	adapter: 'sails-mongo',
+    	url: process.env.MONGOLAB_URI
+    }
   }
 
 };
