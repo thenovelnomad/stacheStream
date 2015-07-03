@@ -30,8 +30,20 @@ module.exports = function notFound (data, options) {
   // Log error to console
   if (data !== undefined) {
     sails.log.verbose('Sending 404 ("Not Found") response: \n',data);
+
+    if (sails.rollbar) {
+    	// JCL TODO - these dont appear to be passsing an actual Error in the data variable.
+    	// needs to be handled in a different manner to pass to rollbar
+    	sails.rollbar.handleErrorWithPayloadData(data, {level: 'info'}, req);
+    }
   }
-  else sails.log.verbose('Sending 404 ("Not Found") response');
+  else {
+  	sails.log.verbose('Sending 404 ("Not Found") response');
+
+  	if (sails.rollbar) {
+  		sails.rollbar.reportMessage('404', 'info', req);
+  	}
+  }
 
   // Only include errors in response if application environment
   // is not set to 'production'.  In production, we shouldn't

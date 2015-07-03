@@ -31,9 +31,9 @@ module.exports = {
 	 * environment (see config/connections.js and config/models.js )           *
 	 ***************************************************************************/
 
-	// models: {
-	//   connection: 'someMysqlServer'
-	// },
+	models: {
+	  connection: 'someMongodbServer'
+	},
 
 	/***************************************************************************
 	 * Set the port in the production environment to 80                        *
@@ -46,7 +46,13 @@ module.exports = {
 	 ***************************************************************************/
 
 	log: {
-		level: "debug"
+		level: "debug",
+
+		rollbar: {
+			on: true,
+			token: process.env.ROLLBAR_ACCESS_TOKEN,
+			endpoint: process.env.ROLLBAR_ENDPOINT
+		}
 	},
 
 	session: {

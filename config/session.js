@@ -56,7 +56,7 @@ module.exports.session = {
   port: 6379,
   // ttl: <redis session TTL in seconds>,
   // db: 0,
-  // pass: <redis auth password>,
+  // pass: 'pcn53ad551cfbk3kv3ugas8gi0',
   prefix: 'sess:',
 
 

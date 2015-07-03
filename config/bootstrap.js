@@ -11,6 +11,26 @@
 
 module.exports.bootstrap = function(cb) {
 
+	if ( sails.config.log.rollbar.on ) {
+		sails.rollbar = require('rollbar');
+
+		var options = {
+			endpoint: sails.config.log.rollbar.endpoint,
+			environment: sails.config.environment
+		};
+		sails.rollbar.init(sails.config.log.rollbar.token, options);
+		sails.rollbar.reportMessage('Rollbar is up and running!', 'info' );
+
+		var options = {
+			// Call process.exit(1) when an uncaught exception occurs but after reporting all
+			// pending errors to Rollbar.
+			//
+			// Default: false
+			exitOnUncaughtException: true
+		};
+		sails.rollbar.handleUncaughtExceptions(options);
+	}
+
 	sails.services.passport.loadStrategies();
 
 	// It's very important to trigger this callback method when you are finished

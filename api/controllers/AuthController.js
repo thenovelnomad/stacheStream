@@ -41,8 +41,8 @@ var AuthController = {
 			}
 
 			providers[key] = {
-				name: strategies[key].name
-			, slug: key
+				name: strategies[key].name,
+				slug: key
 			};
 		});
 
@@ -152,6 +152,22 @@ var AuthController = {
 			} else if (flashError) {
 				req.flash('error', flashError);
 			}
+
+			sails.log.verbose('Authorization Error', err, flashError);
+
+			if (sails.rollbar) {
+				sails.rollbar.handleErrorWithPayloadData(
+					new Error('400'),
+					{
+						level: 'info',
+						custom: {
+							errors: flashError || err
+						}
+					},
+					req
+				);
+			}
+
 			req.flash('form', req.body);
 
 			// If an error was thrown, redirect the user to the
