@@ -1,0 +1,18 @@
+{{#each errors}}
+	{{this}}
+{{/each}}
+
+<form role="form" action="/auth/local/register" method="post">
+  <input type="text" name="username" placeholder="Username">
+  <input type="text" name="email" placeholder="Email">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit">Sign up</button>
+</form>
+
+{{#if providers }}
+	<h4>You can also use one of these...</h4>
+
+	{{#each providers}}
+		<a href="/auth/{{this.slug}}/register" role="button">{{this.name}}</a>
+	{{/each}}
+{{/if}}

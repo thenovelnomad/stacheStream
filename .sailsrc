@@ -1,0 +1,12 @@
+{
+        "generators": {
+                // Default scope
+                "scope": {
+                        "engine": "handlebars",
+                        "adapter": "sails-postgresql"
+                },
+                "modules": {
+                        "views": "sails-generate-views-handlebars"
+                }
+        }
+}
