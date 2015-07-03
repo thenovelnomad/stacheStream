@@ -10,6 +10,20 @@
  *
  */
 
+var parseRedisUrl = function( url ) {
+	var parsed = require( 'url' ).parse( url );
+	var password = (parsed.auth || '').split( ':' )[1];
+
+	return {
+		hostname: parsed.hostname,
+		port: parsed.port,
+		password: password
+	};
+};
+
+
+var redis = parseRedisUrl( process.env.REDIS_URL || "redis://localhost:6379" );
+
 module.exports = {
 
 	/***************************************************************************
@@ -36,10 +50,10 @@ module.exports = {
 	},
 
 	session: {
-		host: process.env.REDIS_HOST,
-		port: process.env.REDIS_PORT,
-		db: process.env.REDIS_DB,
-		pass: process.env.REDIS_PASS,
+		host: redis.hostname,
+		port: redis.port,
+		db: 0,
+		pass: redis.password
 	},
 
 	connections: {
