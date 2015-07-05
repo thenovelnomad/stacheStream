@@ -46,7 +46,7 @@ module.exports = {
 	 ***************************************************************************/
 
 	log: {
-		level: "debug",
+		level: process.env.LOG_LEVEL,
 
 		rollbar: {
 			on: true,
